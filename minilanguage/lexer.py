@@ -68,12 +68,12 @@ class FeatureLexer(object):
         return t
 
     def t_TRUE(self, t):
-        r'true'
+        r'True'
         t.value = True
         return t
 
     def t_FALSE(self, t):
-        r'false'
+        r'False'
         t.value = False
         return t
 

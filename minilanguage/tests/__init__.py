@@ -7,7 +7,7 @@ from minilanguage.grammar import FeatureParser
 class TestDSL(TestCase):
     def setUp(self):
         self.data = '''
-        12 and 13 and (14 or 15) and country == "US" and not false
+        12 and 13 and (14 or 15) and country == "US" and not False
         '''
         self.context = {
             'country': 'US',
@@ -145,10 +145,10 @@ class TestDSL(TestCase):
         result = parser.test("12 != 12")
         self.assertEqual(result, False)
 
-        result = parser.test("12 and false")
+        result = parser.test("12 and False")
         self.assertEqual(result, False)
 
-        result = parser.test("12 or false")
+        result = parser.test("12 or False")
         self.assertEqual(result, 12)
 
         result = parser.test("12 > 10")
