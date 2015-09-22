@@ -2,6 +2,8 @@ Minilanguage
 ============
 *A minimal DSL for Python*
 
+.. image:: https://travis-ci.org/fcurella/minilanguage.svg
+
 ``Minilanguage`` is a minimal DSL for Python written with `Ply <http://www.dabeaz.com/ply/>`_.
 
 Is it intended to be a starting point for writing more specific DSLs.
