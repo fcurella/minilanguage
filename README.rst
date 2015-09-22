@@ -29,43 +29,43 @@ Example
         parser = FeatureParser(context)
         parser.build()
 
-        parser.test("12 + 12")
+        parser.evaluate("12 + 12")
         # 24
 
-        parser.test("12 == 12")
+        parser.evaluate("12 == 12")
         # True
 
-        parser.test("12 != 12")
+        parser.evaluate("12 != 12")
         # False
 
-        parser.test("12 and False")
+        parser.evaluate("12 and False")
         # False
 
-        parser.test("12 or False")
+        parser.evaluate("12 or False")
         # 12
 
-        parser.test("12 > 10")
+        parser.evaluate("12 > 10")
         # True
 
-        parser.test("12 < 10")
+        parser.evaluate("12 < 10")
         # False
 
-        parser.test("12 <= 12")
+        parser.evaluate("12 <= 12")
         # True
 
-        parser.test("12 >= 12")
+        parser.evaluate("12 >= 12")
         # True
 
-        parser.test("country")
+        parser.evaluate("country")
         # 'US'
 
-        parser.test("country == 'US'")
+        parser.evaluate("country == 'US'")
         # True
 
-        parser.test("user.username")
+        parser.evaluate("user.username")
         # 'regular_user'
 
-        parser.test("user.data_bag.payload")
+        parser.evaluate("user.data_bag.payload")
         # 'abc'
 
 License

@@ -127,5 +127,5 @@ class FeatureParser(object):
     def build(self, **kwargs):
         self.parser = yacc.yacc(module=self, **kwargs)
 
-    def test(self, data):
+    def evaluate(self, data):
         return self.parser.parse(data)

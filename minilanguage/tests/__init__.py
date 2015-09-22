@@ -136,41 +136,41 @@ class TestDSL(TestCase):
         parser = FeatureParser(self.context)
         parser.build()
 
-        result = parser.test("12 + 12")
+        result = parser.evaluate("12 + 12")
         self.assertEqual(result, 24)
 
-        result = parser.test("12 == 12")
+        result = parser.evaluate("12 == 12")
         self.assertEqual(result, True)
 
-        result = parser.test("12 != 12")
+        result = parser.evaluate("12 != 12")
         self.assertEqual(result, False)
 
-        result = parser.test("12 and False")
+        result = parser.evaluate("12 and False")
         self.assertEqual(result, False)
 
-        result = parser.test("12 or False")
+        result = parser.evaluate("12 or False")
         self.assertEqual(result, 12)
 
-        result = parser.test("12 > 10")
+        result = parser.evaluate("12 > 10")
         self.assertEqual(result, True)
 
-        result = parser.test("12 < 10")
+        result = parser.evaluate("12 < 10")
         self.assertEqual(result, False)
 
-        result = parser.test("12 <= 12")
+        result = parser.evaluate("12 <= 12")
         self.assertEqual(result, True)
 
-        result = parser.test("12 >= 12")
+        result = parser.evaluate("12 >= 12")
         self.assertEqual(result, True)
 
-        result = parser.test("country")
+        result = parser.evaluate("country")
         self.assertEqual(result, 'US')
 
-        result = parser.test("country == 'US'")
+        result = parser.evaluate("country == 'US'")
         self.assertEqual(result, True)
 
-        result = parser.test("user.username")
+        result = parser.evaluate("user.username")
         self.assertEqual(result, 'regular_user')
 
-        result = parser.test("user.data_bag.payload")
+        result = parser.evaluate("user.data_bag.payload")
         self.assertEqual(result, 'abc')
