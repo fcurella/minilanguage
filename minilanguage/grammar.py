@@ -1,0 +1,131 @@
+from ply import yacc
+
+
+from .lexer import FeatureLexer
+
+
+class FeatureParser(object):
+
+    precedence = (
+        ('left', 'DOT'),
+        ('left', '+', '-'),
+        ('left', '*', '/'),
+    )
+
+    def __init__(self, context=None):
+        if context is None:
+            context = {}
+        m = FeatureLexer(context)
+        self.tokens = m.tokens
+
+    def p_expression_comment(self, p):
+        'expression : expression COMMENT'
+        p[0] = p[1]
+
+    def p_expression_plus(self, p):
+        '''expression : expression '+' term'''
+        p[0] = p[1] + p[3]
+
+    def p_expression_minus(self, p):
+        '''expression : expression '-' term'''
+        p[0] = p[1] - p[3]
+
+    def p_expression_and(self, p):
+        '''expression : expression AND term'''
+        p[0] = p[1] and p[3]
+
+    def p_expression_or(self, p):
+        '''expression : expression OR term'''
+        p[0] = p[1] or p[3]
+
+    def p_expression_equals(self, p):
+        '''expression : expression EQUALS term'''
+        p[0] = p[1] == p[3]
+
+    def p_expression_not_equals(self, p):
+        '''expression : expression NOT_EQUALS term'''
+        p[0] = p[1] != p[3]
+
+    def p_expression_gt(self, p):
+        '''expression : expression GT term'''
+        p[0] = p[1] > p[3]
+
+    def p_expression_lt(self, p):
+        '''expression : expression LT term'''
+        p[0] = p[1] < p[3]
+
+    def p_expression_gte(self, p):
+        '''expression : expression GTE term'''
+        p[0] = p[1] >= p[3]
+
+    def p_expression_lte(self, p):
+        '''expression : expression LTE term'''
+        p[0] = p[1] <= p[3]
+
+    def p_expression_in(self, p):
+        '''expression : expression IN term'''
+        p[0] = p[1] in p[3]
+
+    def p_expression_times(self, p):
+        '''expression : expression '*' term'''
+        p[0] = p[1] * p[3]
+
+    def p_expression_div(self, p):
+        '''expression : expression '/' term'''
+        p[0] = p[1] / p[3]
+
+    def p_expression_term(self, p):
+        'expression : term'
+        p[0] = p[1]
+
+    def p_term_factor(self, p):
+        'term : factor'
+        p[0] = p[1]
+
+    def p_term_not(self, p):
+        'term : NOT factor'
+        p[0] = not p[2]
+
+    def p_factor_dot(self, p):
+        'factor : factor DOT factor'
+        src = p[1]
+        attr = p[3]
+
+        try:
+            p[0] = src[attr]
+        except TypeError:
+            p[0] = getattr(src, attr)
+
+    def p_factor_expr(self, p):
+        'factor : LPAREN expression RPAREN'
+        p[0] = p[2]
+
+    def p_factor_num(self, p):
+        'factor : NUMBER'
+        p[0] = p[1]
+
+    def p_factor_id(self, p):
+        'factor : ID'
+        p[0] = p[1]
+
+    def p_factor_string(self, p):
+        'factor : STRING'
+        p[0] = p[1]
+
+    def p_factor_true(self, p):
+        'factor : TRUE'
+        p[0] = p[1]
+
+    def p_factor_false(self, p):
+        'factor : FALSE'
+        p[0] = p[1]
+
+    # Error rule for syntax errors
+    def p_error(self, p):
+        print("Syntax error in input!")
+
+    def build(self, **kwargs):
+        self.parser = yacc.yacc(module=self, **kwargs)
+
+    def test(self, data):
+        return self.parser.parse(data)
