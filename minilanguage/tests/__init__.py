@@ -79,6 +79,10 @@ class TestDSL(TestCase):
         self.assertEqual(t.type, 'FALSE')
         self.assertEqual(t.value, False)
 
+        tokens = m.test('0x0F')
+        self.assertEqual(len(tokens), 1)
+        self.assertEqual(tokens[0].value, 15)
+
         tokens = m.test('"a string with spaces"')
         self.assertEqual(len(tokens), 1)
 
@@ -174,3 +178,6 @@ class TestDSL(TestCase):
 
         result = parser.evaluate("user.data_bag.payload")
         self.assertEqual(result, 'abc')
+
+        result = parser.evaluate("0x0F")
+        self.assertEqual(result, 15)

@@ -4,28 +4,29 @@ from ply import lex
 class FeatureLexer(object):
 
     reserved = {
-       'and': 'AND',
-       'or': 'OR',
-       'not': 'NOT',
-       "in": 'IN',
+        'and': 'AND',
+        'or': 'OR',
+        'not': 'NOT',
+        "in": 'IN',
     }
 
     tokens = (
-       'NUMBER',
-       'LPAREN',
-       'RPAREN',
-       'EQUALS',
-       'NOT_EQUALS',
-       'GT',
-       'LT',
-       'GTE',
-       'LTE',
-       'COMMENT',
-       'STRING',
-       'ID',
-       'TRUE',
-       'FALSE',
-       'DOT',
+        'HEX',
+        'NUMBER',
+        'LPAREN',
+        'RPAREN',
+        'EQUALS',
+        'NOT_EQUALS',
+        'GT',
+        'LT',
+        'GTE',
+        'LTE',
+        'COMMENT',
+        'STRING',
+        'ID',
+        'TRUE',
+        'FALSE',
+        'DOT',
     ) + tuple(reserved.values())
 
     t_LPAREN = r'\('
@@ -49,6 +50,11 @@ class FeatureLexer(object):
 
     def symbol_lookup(self, id_):
         return self.context.get(id_, id_)
+
+    def t_HEX(self, t):
+        r'0x[0-9a-fA-F]+'
+        t.value = int(t.value, 16)
+        return t
 
     def t_NUMBER(self, t):
         r'\d+'

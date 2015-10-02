@@ -26,46 +26,46 @@ Example
             }
         }
 
-        parser = FeatureParser(context)
+        parser = FeatureParser()
         parser.build()
 
-        parser.evaluate("12 + 12")
+        parser.evaluate("12 + 12", context)
         # 24
 
-        parser.evaluate("12 == 12")
+        parser.evaluate("12 == 12", context)
         # True
 
-        parser.evaluate("12 != 12")
+        parser.evaluate("12 != 12", context)
         # False
 
-        parser.evaluate("12 and False")
+        parser.evaluate("12 and False", context)
         # False
 
-        parser.evaluate("12 or False")
+        parser.evaluate("12 or False", context)
         # 12
 
-        parser.evaluate("12 > 10")
+        parser.evaluate("12 > 10", context)
         # True
 
-        parser.evaluate("12 < 10")
+        parser.evaluate("12 < 10", context)
         # False
 
-        parser.evaluate("12 <= 12")
+        parser.evaluate("12 <= 12", context)
         # True
 
-        parser.evaluate("12 >= 12")
+        parser.evaluate("12 >= 12", context)
         # True
 
-        parser.evaluate("country")
+        parser.evaluate("country", context)
         # 'US'
 
-        parser.evaluate("country == 'US'")
+        parser.evaluate("country == 'US'", context)
         # True
 
-        parser.evaluate("user.username")
+        parser.evaluate("user.username", context)
         # 'regular_user'
 
-        parser.evaluate("user.data_bag.payload")
+        parser.evaluate("user.data_bag.payload", context)
         # 'abc'
 
 License

@@ -15,8 +15,8 @@ class FeatureParser(object):
     def __init__(self, context=None):
         if context is None:
             context = {}
-        m = FeatureLexer(context)
-        self.tokens = m.tokens
+        self.context = context
+        self.lexer = FeatureLexer(context)
 
     def p_expression_comment(self, p):
         'expression : expression COMMENT'
@@ -100,6 +100,10 @@ class FeatureParser(object):
         'factor : LPAREN expression RPAREN'
         p[0] = p[2]
 
+    def p_factor_hex(self, p):
+        'factor : HEX'
+        p[0] = p[1]
+
     def p_factor_num(self, p):
         'factor : NUMBER'
         p[0] = p[1]
@@ -125,7 +129,12 @@ class FeatureParser(object):
         print("Syntax error in input!")
 
     def build(self, **kwargs):
+        self.lexer.build(**kwargs)
+        self.tokens = self.lexer.tokens
         self.parser = yacc.yacc(module=self, **kwargs)
 
-    def evaluate(self, data):
+    def evaluate(self, data, context=None):
+        if context is None:
+            context = self.context
+        self.lexer.context = context
         return self.parser.parse(data)
