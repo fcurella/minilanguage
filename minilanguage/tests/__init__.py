@@ -185,6 +185,9 @@ class TestDSL(TestCase):
         result = parser.evaluate("0.5")
         self.assertEqual(result, 0.5)
 
+        result = parser.evaluate("2 + 0.5")
+        self.assertEqual(result, 2.5)
+
         result = parser.evaluate("'a', 'b'")
         self.assertEqual(result, ('a', 'b',))
 

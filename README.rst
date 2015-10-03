@@ -29,6 +29,9 @@ Example
         parser = FeatureParser()
         parser.build()
 
+        parser.evaluate("2 + 0.5", context)
+        # 2.5
+
         parser.evaluate("12 + 12", context)
         # 24
 
@@ -64,6 +67,9 @@ Example
 
         parser.evaluate("user.username", context)
         # 'regular_user'
+
+        parser.evaluate("'a', 'b'", context)
+        # tuple('a', 'b')
 
         parser.evaluate("user.data_bag.payload", context)
         # 'abc'
