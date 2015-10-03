@@ -93,7 +93,7 @@ class FeatureParser(object):
 
         try:
             p[0] = src[attr]
-        except TypeError:
+        except KeyError:
             p[0] = getattr(src, attr)
 
     def p_factor_expr(self, p):
