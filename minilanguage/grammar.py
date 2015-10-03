@@ -7,7 +7,7 @@ from .lexer import FeatureLexer
 class FeatureParser(object):
 
     precedence = (
-        ('left', 'DOT'),
+        ('left', 'COMMA', 'DOT',),
         ('left', '+', '-'),
         ('left', '*', '/'),
     )
@@ -85,6 +85,10 @@ class FeatureParser(object):
     def p_term_not(self, p):
         'term : NOT factor'
         p[0] = not p[2]
+
+    def p_tuple(self, p):
+        'factor : factor COMMA factor'
+        p[0] = (p[1], p[3])
 
     def p_factor_dot(self, p):
         'factor : factor DOT factor'

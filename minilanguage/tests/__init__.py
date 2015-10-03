@@ -185,5 +185,8 @@ class TestDSL(TestCase):
         result = parser.evaluate("0.5")
         self.assertEqual(result, 0.5)
 
+        result = parser.evaluate("'a', 'b'")
+        self.assertEqual(result, ('a', 'b',))
+
         result = parser.evaluate("user.get('missing_key')")
         self.assertEqual(result, None)

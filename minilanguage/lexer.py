@@ -28,6 +28,7 @@ class FeatureLexer(object):
         'TRUE',
         'FALSE',
         'DOT',
+        'COMMA',
     ) + tuple(reserved.values())
 
     t_LPAREN = r'\('
@@ -77,6 +78,10 @@ class FeatureLexer(object):
 
     def t_DOT(self, t):
         r'\.'
+        return t
+
+    def t_COMMA(self, t):
+        r'\,'
         return t
 
     def t_TRUE(self, t):
