@@ -181,3 +181,6 @@ class TestDSL(TestCase):
 
         result = parser.evaluate("0x0F")
         self.assertEqual(result, 15)
+
+        result = parser.evaluate("0.5")
+        self.assertEqual(result, 0.5)

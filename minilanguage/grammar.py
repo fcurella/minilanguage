@@ -104,6 +104,10 @@ class FeatureParser(object):
         'factor : HEX'
         p[0] = p[1]
 
+    def p_factor_float(self, p):
+        'factor : FLOAT'
+        p[0] = p[1]
+
     def p_factor_num(self, p):
         'factor : NUMBER'
         p[0] = p[1]

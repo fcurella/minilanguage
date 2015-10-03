@@ -12,6 +12,7 @@ class FeatureLexer(object):
 
     tokens = (
         'HEX',
+        'FLOAT',
         'NUMBER',
         'LPAREN',
         'RPAREN',
@@ -54,6 +55,11 @@ class FeatureLexer(object):
     def t_HEX(self, t):
         r'0x[0-9a-fA-F]+'
         t.value = int(t.value, 16)
+        return t
+
+    def t_FLOAT(self, t):
+        r'\d+\.\d+'
+        t.value = float(t.value)
         return t
 
     def t_NUMBER(self, t):
