@@ -193,3 +193,18 @@ class TestDSL(TestCase):
 
         result = parser.evaluate("user.get('missing_key')")
         self.assertEqual(result, None)
+
+        result = parser.evaluate("user.get('missing_key', 'default')")
+        self.assertEqual(result, 'default')
+
+        result = parser.evaluate("t if a else b", {"a": False, "b": 'x', "t": "y"})
+        self.assertEqual(result, 'x')
+
+        result = parser.evaluate("t if a else b", {"a": True, "b": 'x', "t": "y"})
+        self.assertEqual(result, 'y')
+
+        result = parser.evaluate("if a then t else b", {"a": False, "b": 'x', "t": "y"})
+        self.assertEqual(result, 'x')
+
+        result = parser.evaluate("if a then t else b", {"a": True, "b": 'x', "t": "y"})
+        self.assertEqual(result, 'y')

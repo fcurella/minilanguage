@@ -66,6 +66,14 @@ class FeatureParser(object):
         '''expression : expression IN term'''
         p[0] = p[1] in p[3]
 
+    def p_expression_if_else(self, p):
+        '''expression : expression IF term ELSE term'''
+        p[0] = p[1] if p[3] else p[5]
+
+    def p_expression_if_then_else(self, p):
+        '''expression : IF expression THEN term ELSE term'''
+        p[0] = p[4] if p[2] else p[6]
+
     def p_expression_times(self, p):
         '''expression : expression '*' term'''
         p[0] = p[1] * p[3]
@@ -78,6 +86,14 @@ class FeatureParser(object):
         'expression : term'
         p[0] = p[1]
 
+    def p_tuple(self, p):
+        'tuple : term COMMA term'
+        p[0] = (p[1], p[3])
+
+    def p_term_tuple(self, p):
+        'term : tuple'
+        p[0] = p[1]
+
     def p_term_factor(self, p):
         'term : factor'
         p[0] = p[1]
@@ -86,9 +102,21 @@ class FeatureParser(object):
         'term : NOT factor'
         p[0] = not p[2]
 
-    def p_tuple(self, p):
-        'factor : factor COMMA factor'
-        p[0] = (p[1], p[3])
+    def p_factor_method_args(self, p):
+        'factor : factor DOT ID LPAREN tuple RPAREN'
+        src = p[1]
+        attr = p[3]
+        arg = p[5]
+
+        p[0] = getattr(src, attr)(*arg)
+
+    def p_factor_method(self, p):
+        'factor : factor DOT ID LPAREN factor RPAREN'
+        src = p[1]
+        attr = p[3]
+        arg = p[5]
+
+        p[0] = getattr(src, attr)(arg)
 
     def p_factor_dot(self, p):
         'factor : factor DOT factor'

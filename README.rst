@@ -74,6 +74,9 @@ Example
         parser.evaluate("user.data_bag.payload", context)
         # 'abc'
 
+        parser.evaluate("12 if False else 14", context)
+        # 14
+
 License
 -------
 

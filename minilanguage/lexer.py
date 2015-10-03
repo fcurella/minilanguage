@@ -8,6 +8,9 @@ class FeatureLexer(object):
         'or': 'OR',
         'not': 'NOT',
         "in": 'IN',
+        "if": 'IF',
+        "then": 'THEN',
+        "else": 'ELSE',
     }
 
     tokens = (
@@ -65,10 +68,7 @@ class FeatureLexer(object):
 
     def t_NUMBER(self, t):
         r'\d+'
-        try:
-            t.value = int(t.value)
-        except ValueError:
-            t.value = float(t.value)
+        t.value = int(t.value)
         return t
 
     def t_COMMENT(self, t):
@@ -103,6 +103,18 @@ class FeatureLexer(object):
         r'[a-zA-Z_][a-zA-Z_0-9]*'
         t.type = self.reserved.get(t.value, 'ID')    # Check for reserved words
         t.value = self.symbol_lookup(t.value)
+        return t
+
+    def t_IF(self, t):
+        r'if'
+        return t
+
+    def t_THEN(self, t):
+        r'then'
+        return t
+
+    def t_ELSE(self, t):
+        r'else'
         return t
 
     def t_newline(self, t):
