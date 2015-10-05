@@ -3,6 +3,7 @@
 *.py[co]
 *.out
 parsetab.py
+lextab.py
 __pycache__
 MANIFEST
 dist/

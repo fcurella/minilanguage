@@ -11,7 +11,7 @@ setup(
     author_email='flavio.curella@gmail.com',
     description='A minimal DSL for Python',
     license='MIT',
-    packages=find_packages(exclude=['*.tests']),
+    packages=find_packages(exclude=['*.tests', 'lextab.py', 'parsetab.py']),
     platforms=["any"],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
