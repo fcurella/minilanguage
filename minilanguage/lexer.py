@@ -17,6 +17,8 @@ class FeatureLexer(object):
         'HEX',
         'FLOAT',
         'NUMBER',
+        'LBRACKET',
+        'RBRACKET',
         'LPAREN',
         'RPAREN',
         'EQUALS',
@@ -33,6 +35,9 @@ class FeatureLexer(object):
         'DOT',
         'COMMA',
     ) + tuple(reserved.values())
+
+    t_LBRACKET = r'\['
+    t_RBRACKET = r'\]'
 
     t_LPAREN = r'\('
     t_RPAREN = r'\)'

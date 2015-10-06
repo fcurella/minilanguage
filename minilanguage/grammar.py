@@ -118,15 +118,19 @@ class FeatureParser(object):
 
         p[0] = getattr(src, attr)(arg)
 
+    def p_factor_brackets(self, p):
+        'factor : factor LBRACKET factor RBRACKET'
+        src = p[1]
+        attr = p[3]
+
+        p[0] = src[attr]
+
     def p_factor_dot(self, p):
         'factor : factor DOT factor'
         src = p[1]
         attr = p[3]
 
-        try:
-            p[0] = src[attr]
-        except KeyError:
-            p[0] = getattr(src, attr)
+        p[0] = getattr(src, attr)
 
     def p_factor_expr(self, p):
         'factor : LPAREN expression RPAREN'

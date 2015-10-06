@@ -117,24 +117,30 @@ class TestDSL(TestCase):
         t = tokens[2]
         self.assertEqual(t.type, 'ID')
 
-        tokens = m.test('user.data_bag.payload')
-        self.assertEqual(len(tokens), 5)
+        tokens = m.test("user['data_bag']['payload']")
+        self.assertEqual(len(tokens), 7)
 
         t = tokens[0]
         self.assertEqual(t.type, 'ID')
         self.assertEqual(t.value, self.context['user'])
 
         t = tokens[1]
-        self.assertEqual(t.type, 'DOT')
+        self.assertEqual(t.type, 'LBRACKET')
 
         t = tokens[2]
-        self.assertEqual(t.type, 'ID')
+        self.assertEqual(t.type, 'STRING')
 
         t = tokens[3]
-        self.assertEqual(t.type, 'DOT')
+        self.assertEqual(t.type, 'RBRACKET')
 
         t = tokens[4]
-        self.assertEqual(t.type, 'ID')
+        self.assertEqual(t.type, 'LBRACKET')
+
+        t = tokens[5]
+        self.assertEqual(t.type, 'STRING')
+
+        t = tokens[6]
+        self.assertEqual(t.type, 'RBRACKET')
 
     def test_parser(self):
         parser = FeatureParser(self.context)
@@ -173,10 +179,10 @@ class TestDSL(TestCase):
         result = parser.evaluate("country == 'US'")
         self.assertEqual(result, True)
 
-        result = parser.evaluate("user.username")
+        result = parser.evaluate("user['username']")
         self.assertEqual(result, 'regular_user')
 
-        result = parser.evaluate("user.data_bag.payload")
+        result = parser.evaluate("user['data_bag']['payload']")
         self.assertEqual(result, 'abc')
 
         result = parser.evaluate("0x0F")

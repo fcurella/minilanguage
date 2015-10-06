@@ -65,14 +65,17 @@ Example
         parser.evaluate("country == 'US'", context)
         # True
 
-        parser.evaluate("user.username", context)
+        parser.evaluate("user['username']", context)
         # 'regular_user'
 
         parser.evaluate("'a', 'b'", context)
         # tuple('a', 'b')
 
-        parser.evaluate("user.data_bag.payload", context)
+        parser.evaluate("user['data_bag']['payload']", context)
         # 'abc'
+
+        parser.evaluate("user.get('missing_key', 'default')", context)
+        # 'default'
 
         parser.evaluate("12 if False else 14", context)
         # 14
