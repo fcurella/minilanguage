@@ -1,3 +1,5 @@
+from collections import namedtuple
+
 from unittest import TestCase
 
 from minilanguage.lexer import FeatureLexer
@@ -9,6 +11,7 @@ class TestDSL(TestCase):
         self.data = '''
         12 and 13 and (14 or 15) and country == "US" and not False
         '''
+        MyClass = namedtuple('MyClass', ['x', 'y'])
         self.context = {
             'country': 'US',
             'user': {
@@ -16,7 +19,8 @@ class TestDSL(TestCase):
                 'data_bag': {
                     "payload": 'abc',
                 }
-            }
+            },
+            'myobj': MyClass(14, 15)
         }
 
     def test_lexer(self):
@@ -178,6 +182,12 @@ class TestDSL(TestCase):
 
         result = parser.evaluate("country == 'US'")
         self.assertEqual(result, True)
+
+        result = parser.evaluate("myobj.x == 14")
+        self.assertEqual(result, True)
+
+        result = parser.evaluate("'cat' if myobj.x == 14 else 'dog'")
+        self.assertEqual(result, 'cat')
 
         result = parser.evaluate("user['username']")
         self.assertEqual(result, 'regular_user')

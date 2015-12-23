@@ -66,13 +66,13 @@ class FeatureParser(object):
         '''expression : expression IN term'''
         p[0] = p[1] in p[3]
 
-    def p_expression_if_else(self, p):
-        '''expression : expression IF term ELSE term'''
-        p[0] = p[1] if p[3] else p[5]
-
     def p_expression_if_then_else(self, p):
         '''expression : IF expression THEN term ELSE term'''
         p[0] = p[4] if p[2] else p[6]
+
+    def p_expression_if_else(self, p):
+        '''expression : expression IF expression ELSE term'''
+        p[0] = p[1] if p[3] else p[5]
 
     def p_expression_times(self, p):
         '''expression : expression '*' term'''
