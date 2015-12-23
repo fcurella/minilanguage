@@ -14,7 +14,7 @@ setup(
     packages=find_packages(exclude=['*.tests', 'lextab.py', 'parsetab.py']),
     platforms=["any"],
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
