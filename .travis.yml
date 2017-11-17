@@ -4,16 +4,17 @@ branches:
   only:
     - master
 python:
-  - 2.6
   - 2.7
   - 3.3
   - 3.4
   - 3.5
+  - 3.6
   - "pypy"
   - "pypy3"
 install:
+  - pip install coveralls
   - pip install -e .
 script:
-  - python setup.py test
+  - coverage run setup.py test
 after_success:
   - coveralls

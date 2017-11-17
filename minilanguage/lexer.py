@@ -1,7 +1,7 @@
 from ply import lex
 
 
-class FeatureLexer(object):
+class Lexer(object):
 
     reserved = {
         'and': 'AND',
