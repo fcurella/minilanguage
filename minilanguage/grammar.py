@@ -1,10 +1,10 @@
 from ply import yacc
 
 
-from .lexer import FeatureLexer
+from .lexer import Lexer
 
 
-class FeatureParser(object):
+class Parser(object):
 
     precedence = (
         ('left', 'COMMA', 'DOT',),
@@ -16,7 +16,7 @@ class FeatureParser(object):
         if context is None:
             context = {}
         self.context = context
-        self.lexer = FeatureLexer(context)
+        self.lexer = Lexer(context)
 
     def p_expression_comment(self, p):
         'expression : expression COMMENT'

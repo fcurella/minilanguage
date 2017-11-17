@@ -14,7 +14,7 @@ Example
 -------
 ::
 
-        from minilanguage.grammar import FeatureParser
+        from minilanguage.grammar import Parser
 
         context = {
             'country': 'US',
@@ -26,7 +26,7 @@ Example
             }
         }
 
-        parser = FeatureParser()
+        parser = Parser()
         parser.build()
 
         parser.evaluate("2 + 0.5", context)

@@ -2,8 +2,8 @@ from collections import namedtuple
 
 from unittest import TestCase
 
-from minilanguage.lexer import FeatureLexer
-from minilanguage.grammar import FeatureParser
+from minilanguage.lexer import Lexer
+from minilanguage.grammar import Parser
 
 
 class TestDSL(TestCase):
@@ -24,7 +24,7 @@ class TestDSL(TestCase):
         }
 
     def test_lexer(self):
-        m = FeatureLexer(self.context)
+        m = Lexer(self.context)
         m.build()
         tokens = m.test(self.data)
 
@@ -147,7 +147,7 @@ class TestDSL(TestCase):
         self.assertEqual(t.type, 'RBRACKET')
 
     def test_parser(self):
-        parser = FeatureParser(self.context)
+        parser = Parser(self.context)
         parser.build()
 
         result = parser.evaluate("12 + 12")
